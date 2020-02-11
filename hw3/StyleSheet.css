@@ -1,0 +1,111 @@
+/* Abigail Radey - Homework 3 - Comp 20 
+   External Style Sheet for Chrity's Cookies*/
+/*
+   <style>
+	.topnav {
+		background-color: #e37a42;
+		overflow: hidden;
+	}
+	.topnav a {
+		float: left;
+		color: #ffffff;
+		text-align: center;
+		padding: 40px 40px;
+		text-decoration: none;
+		font-size: 28px;
+	}
+	.topnav a:hover {
+		background-color: #ffffff;
+		color: #e37a42;
+	}
+	.topnav a.active {
+		background-color: #ffffff;
+		color: #e37a42;
+	}
+	.container {
+		display: inline-block;
+		cursor: pointer;
+	}
+	.bar1, .bar2, .bar3 {
+		width: 100px;
+		height: 20px;
+		background-color: #e37a42;
+		margin: 10px 0;
+		transition: 0.5s
+	}
+	.change .bar1 {
+		-webkit-transform: rotate(-45deg) translate(-9px, 6px);
+		transform: rotate(-45deg) translate(-9px, 6px);
+	}
+	.change .bar2 {opacity: 0;}
+	.change .bar3 {} */
+
+* {
+	font-family: Helvetica;
+	color: white;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+	display: flex;
+}
+li {
+	list-style-type: none;
+	margin: 0;
+	font-size: 10vh;
+}
+a {
+	text-decoration: none;
+	color: #ffffff;
+	font-size: 5vh;
+	padding: 2vw;
+}
+a:hover {
+	background-color: #48c0db;
+}
+h1 {
+	text-align: center;
+	font-size: 10vh;
+}
+h2 {
+	text-align: center;
+	font-size: 5vh;
+}
+nav {
+	width: 100vw;
+	height: 15vh;
+	background-color: #49abc1;
+}
+.image {
+	position: relative;
+	text-align: center;
+	color: #ffffff;
+}
+.centered {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	/*transform: translate(-50%, -50%);*/
+}
+body {
+	margin: 0;
+}
+
+.hero {
+	background-image: url("HomeImage.jpg");
+	background-size: cover;
+	height: 70vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+}
+
+.group {
+}
+
+
+
+
+
