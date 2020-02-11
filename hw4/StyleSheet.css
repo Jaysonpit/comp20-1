@@ -6,15 +6,21 @@ StyleSheet.css: style sheet for setlist.xml*/
 	color: white;
 }
 header {
-	font-size: 40px;
+	font-size: 50px;
 	background-color: #875C74;
 	display: block;
+	text-align: center;
+	margin: 0.5em;
+}
+SONG {
+	display: block;
+	margin: 0.5em;
+	background-color: #48639C;
 	text-align: center;
 }
 ARTISTS, TITLE, GENRE, YEAR {
 	display: block;
 	text-align: center;
-	background-color: #48639C;
 }
 ARTISTS, TITLE {
 	font-size: 25px;
