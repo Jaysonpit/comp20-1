@@ -1,0 +1,24 @@
+/*Abigail Radey - Homework 4 - Comp20
+StyleSheet.css: style sheet for setlist.xml*/
+
+* {
+	font-family: Helvetica;
+	color: white;
+}
+header {
+	font-size: 40px;
+	background-color: #875C74;
+	display: block;
+	text-align: center;
+}
+ARTISTS, TITLE, GENRE, YEAR {
+	display: block;
+	text-align: center;
+	background-color: #48639C;
+}
+ARTISTS, TITLE {
+	font-size: 25px;
+}
+GENRE, YEAR {
+	font-size: 18px;
+}
