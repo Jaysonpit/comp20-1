@@ -1,0 +1,76 @@
+<!-- Abigail Radey - Comp 20 - HW5 
+     Javascript-->
+
+<!DOCTYPE html>
+<head>
+	<title>Joe's Hotdog Stand</title>
+</head>
+<body>
+	<h1>Welcome to Joe's Hotdog Stand's Online Ordering Service</h1>
+
+	<h2>Prices:</h2>
+	<p>Hotdogs: $3.25<br>French Fries: $2.00<br>Drinks: $1.50<br></p>
+	<p>Please place your order below</p>
+
+	<p>
+		Number of Hot Dogs: <input type="text" id="numHotDogs">
+		<br><br>
+		Orders of French Fries: <input type="text" id="numFries">
+		<br><br>
+		Number of Drinks: <input type="text" id="numDrinks">
+		<br><br>
+		<button type="button" onclick="CalculateTotal()">Calculate Subtotal</button>
+	</p>
+	<h2 id="totalheading"></h2>
+	<p id="hotdogs"></p>
+	<p id="fries"></p>
+	<p id="drinks"></p>
+	<p id="discount"></p>
+	<p id="subtotal"></p>
+	<p id="tax"></p>
+	<p id="total"></p>
+
+<!-- <button type="button" onclick="CalculateTotal()">Try it</button>
+ -->	
+ 	<script>
+		function CalculateTotal() {
+			var HDnum=parseInt(document.getElementById("numHotDogs").value);
+			var Fnum=parseInt(document.getElementById("numFries").value);
+			var Dnum=parseInt(document.getElementById("numDrinks").value);
+
+
+			var HDcost = 3.25 * HDnum;
+			var Fcost = 2 * Fnum;
+			var Dcost = 1.5 * Dnum;
+
+			var HDstring = HDnum + " hot dog(s) ($" + HDcost + ")";
+			var Fstring = Fnum + " french fries ($" + Fcost + ")";
+			var Dstring = Dnum + " drink(s) ($" + Dcost + ")";
+
+			document.getElementById("totalheading").innerHTML = "Receipt:";
+			document.getElementById("hotdogs").innerHTML = HDstring;
+			document.getElementById("fries").innerHTML = Fstring;
+			document.getElementById("drinks").innerHTML = Dstring;
+
+			var sum = HDcost + Fcost + Dcost;
+			var save = 0;
+
+
+			if(sum >= 20) {
+				save = Math.round((0.1 * sum)*100)/100;
+				document.getElementById("discount").innerHTML = "Discount: -$" + save;
+			}
+			sum = sum - save;
+
+			document.getElementById("subtotal").innerHTML = "Subtotal: $" + sum;
+
+			var mealtax = Math.round((.0625 * sum)*100)/100;
+			document.getElementById("tax").innerHTML = "Tax: $" + mealtax;
+			document.getElementById("total").innerHTML = "Total: $" + (mealtax + sum);
+
+
+
+		}
+	</script>
+
+</body>
