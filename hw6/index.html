@@ -1,0 +1,265 @@
+<!-- Abigail Radey - Comp20 - HW6 
+     index.html Lucky for Life -->
+
+<!DOCTYPE html>
+<head>
+	<title>Lucky for Life</title>
+	<link rel="stylesheet" href="StyleSheet.css">
+</head>
+<body>
+	<h1>Welcome to Lucky for Life</h1>
+	<p>
+		In Lucky for Life, you enter five numbers between 1 and 48, and one Lucky Ball number between 1 and 18. 
+	</p>
+	<h2>Lottery numbers:</h2>
+	<p id="initialDrawing"></p>
+	<p id="sortedDrawing"></p>
+	<h2>Please enter your numbers below, with the first five numbers separated by spaces.</h2>
+	<p>
+		Five numbers (1-48): <input type="text" id="fiveinput">
+		<br><br>
+		Lucky Ball number (1-18): <input type="text" id="luckyinput">
+		<br><br>
+		<button type="button" onclick="CalculateWinnings()">Calculate Winnings</button>
+	</p>
+
+	<!-- Changable Ouputs-->
+	<p id="matchType"></p>
+	<p id="probOfMatch"></p>
+	<p id="thePayout"></p>
+
+	<script>
+		// get random numbers for the lottery
+		var lotteryArray = getRandoms();
+
+		// make the array into a string to print to the screen
+		var lotteryString = "";
+		for (var i=0; i<lotteryArray.length; i++) {
+			lotteryString += lotteryArray[i] + " ";
+		}
+
+		function getRandoms() {
+			// get five random numbers
+			var randomArray = [];
+			var temp;
+
+			for (var i=0; i < 5; i++) {
+				temp = Math.random()*(48-1)+1;
+				randomArray[i] = Math.floor(temp);
+
+				// make sure there are no repeats
+				var j=0;
+				while (j < i) {
+					if (randomArray[i] == randomArray[j]) {
+						temp = Math.random()*(48-1)+1;
+						randomArray[i] = Math.floor(temp);
+						j = 0;
+					} else {
+						j++;
+					}
+				}
+			}
+
+			// get lucky number and add to array and string
+			temp = Math.floor(Math.random()*(18-1)+1);
+			randomArray.push(temp);
+			return randomArray;
+		}
+
+		// print the initial string to the screen
+		document.getElementById("initialDrawing").innerHTML = "Initial Drawing: " + lotteryString;
+
+		// sort the random array
+		var firstFive = [];
+		var luckyRand = lotteryArray[lotteryArray.length-1];
+		for (var i = 0; i < (lotteryArray.length - 1); i++) {
+			firstFive[i] = lotteryArray[i];
+		}
+		function sortNumbers(a,b) {
+			return a-b;
+		}
+		firstFive.sort(sortNumbers);
+		var sortedString = "";
+		for (var i=0; i<firstFive.length; i++) {
+			sortedString += firstFive[i] + " ";
+		}
+		sortedString += luckyRand;
+
+		// print the sorted string to the screen
+		document.getElementById("sortedDrawing").innerHTML = "Sorted Drawing: " + sortedString;
+
+		// get the input from the user
+		function CalculateWinnings() {
+
+			console.log(sortedString);
+			// parse the inputs from the user
+			var luckyI = parseInt(document.getElementById("luckyinput").value);
+			var fiveInString = document.getElementById("fiveinput").value;
+			var inputArray = fiveInString.split(" ");
+
+			// make sure all inputs are integers
+			var inputString = "";
+			for (var i = 0; i < inputArray.length; i++) {
+				inputArray[i] = parseInt(inputArray[i], 10);
+			}
+
+			// sort input array
+			inputArray.sort(sortNumbers);
+
+			// make string
+			for (var i = 0; i < inputArray.length; i++) {
+				inputString += inputArray[i] + " ";
+			}
+
+			// add user lucky ball integer to the end of the array and string
+			inputArray.push(luckyI);
+			inputString += luckyI;
+
+			// get sorted drawing into an array
+			var sortedArray = sortedString.split(" ");
+			for (var i = 0; i < sortedArray.length; i++) {
+				sortedArray[i] = parseInt(sortedArray[i]);
+			}
+
+			// find the number of matches
+			var matches = 0;
+			var luckyMatch = false;
+			if (inputArray[5] == sortedArray[5]) {
+				luckyMatch = true;
+			}
+			for (var i = 0; i < 5; i++) {
+				for (var j = 0; j < 5; j++) {
+					if (inputArray[i] == sortedArray[j]) {
+						matches++;
+					}
+					if (inputArray[i] < sortedArray[j]) {
+						break;
+					}
+				}
+			}
+
+			var matchString = "Match: ";
+			var probability = "Probability: ";
+			var prize = "Prize: ";
+
+			// calculate payout
+			if (luckyMatch == true) {
+				if (matches == 0) {
+					matchString += "0 + Lucky Ball";
+					probability += "1 in 32";
+					prize += "$4";
+				} else if (matches == 1) {
+					matchString += "1 + Lucky Ball";
+					probability += "1 in 49";
+					prize += "$6";
+				} else if (matches == 2) {
+					matchString += "2 + Lucky Ball";
+					probability += "1 in 249";
+					prize += "$25";
+				} else if (matches == 3) {
+					matchString += "3 + Lucky Ball";
+					probability += "1 in 3,413";
+					prize += "$150";
+				} else if (matches == 4) {
+					matchString += "4 + Lucky Ball";
+					probability += "1 in 143,355";
+					prize += "$5,000";
+				} else if (matches == 5) {
+					matchString += "5 + Lucky Ball";
+					probability += "1 in 30,821,472";
+					prize += "$7,000 a WEEK for LIFE!";
+				}
+			} else {
+				if (matches == 0) {
+					matchString += "0";
+					probability += "";
+					prize += "$0";
+				} else if (matches == 1) {
+					matchString += "1";
+					probability += "";
+					prize += "$0";
+				} else if (matches == 2) {
+					matchString += "2";
+					probability += "1 in 14";
+					prize += "$3";
+				} else if (matches == 3) {
+					matchString += "3";
+					probability += "1 in 200";
+					prize += "$20";
+				} else if (matches == 4) {
+					matchString += "4";
+					probability += "1 in 8432";
+					prize += "$200";
+				} else if (matches == 5) {
+					matchString += "5";
+					probability += "1 in 1,813,027";
+					prize += "$25,000 a YEAR for LIFE!";
+				}
+
+			}
+
+			// write payout to screen
+			document.getElementById("matchType").innerHTML = matchString;
+			document.getElementById("probOfMatch").innerHTML = probability;
+			document.getElementById("thePayout").innerHTML = prize;
+
+
+/*
+			// check to make sure inputs are valid
+			if (luckyI > 18 or luckyI < 1) {
+				document.getElementById("errorLucky").innerHTML = "Your Lucky Ball number (" + luckyI + ") was not in the 1-18 range";
+			}
+			if (inputArray.length < 5) {
+				document.getElementById("errorFive").innerHTML = "You did not enter enough numbers";
+			}
+
+			*/
+
+
+			// // get five random numbers
+			// var randomArray = [];
+			// var temp;
+			// var randomString = "";
+			// for (var i=0; i < 5; i++) {
+			// 	temp = Math.random()*(48-1)+1;
+			// 	randomArray[i] = Math.floor(temp);
+			// 	randomString += randomArray[i] + " ";
+			// }
+			// // get lucky number and add to array and string
+			// temp = Math.floor(Math.random()*(18-1)+1);
+			// randomArray.push(temp);
+			// randomString += temp;
+
+
+			//print user's numbers
+			//document.getElementById("yourNumbers").innerHTML = "Your Numbers: " + inputString;
+			//document.getElementById("yourFive").innerHTML = "Your five numbers: " + fiveInString;
+
+			//print random numbers
+			//document.getElementById("randomNumbers").innerHTML = "Random Numbers: " + randomString;
+			//document.getElementById("randomLucky").innerHTML = luckyString;
+
+			// sort arrays
+/*
+			//find matches
+			var matchNum = 0;
+			for (i=0; i<5; i++) {
+				for (var j=0; j<5; jj++) {
+					if (fiveRandom[i] == inputArray[j]) {
+						matchNum += 1;
+					}
+				}
+			}
+			var luckyMatch = false;
+			if (luckI == luckyRandom) {
+				luckyMatch = true;
+			}
+
+			GetPayment(matchNum, luckyMatch);
+			*/
+		}
+
+		//function GetPayment(matches, bool) {}
+		
+	</script>
+</body>
