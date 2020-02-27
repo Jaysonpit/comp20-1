@@ -1,0 +1,112 @@
+<!-- Abigail Radey - Comp 20 - HW6
+     amicable.html -->
+
+<!DOCTYPE html>
+<head>
+	<title>Amicable Numbers</title>
+</head>
+<body>
+	<h1>Are They Amicable?</h1>
+	<h2>Enter two numbers below</h2>
+	<p>
+		First Number: <input type="text" id="numOne">
+		<br><br>
+		Second Number: <input type="text" id="numTwo">
+		<br><br>
+		<button type="button" onclick="readNums()">Find Amicability</button>
+
+		<!-- <p id="input1"></p>
+		<p id="input2"></p> -->
+		<h3 id="input1"></h3>
+		<p id="firstFactors"></p>
+		<h3 id="input2"></h3>
+		<p id="secondFactors"></p>
+		<h2 id="statement"></h2>
+	</p>
+
+	<script>
+
+		// read in and display user input
+		function readNums() {
+			var first = parseInt(document.getElementById("numOne").value);
+			var second = parseInt(document.getElementById("numTwo").value);
+
+			// code to display numbers in first step, commented out for final
+			// document.getElementById("input1").innerHTML = first;
+			// document.getElementById("input2").innerHTML = second;
+
+			firstArray = getFactors(first);
+			secondArray = getFactors(second);
+
+			document.getElementById("input1").innerHTML = "Factors of " + first;
+			showFactors(firstArray, "firstFactors");
+			document.getElementById("input2").innerHTML = "Factors of " + second;
+			showFactors(secondArray, "secondFactors");
+
+			firstSum = addFactors(firstArray);
+			secondSum = addFactors(secondArray);
+
+			var amicable = false;
+			var finalString = first + " and " + second + " are ";
+			if (firstSum == second && secondSum == first) {
+				amicable = true;
+				document.getElementById("statement").innerHTML = finalString + "amicable.";
+			} else {
+				document.getElementById("statement").innerHTML = finalString + "not amicable.";
+			}
+		}
+
+		// check if a test number is a factor of a number
+		function isFactor(number, test) {
+			var divided = number / test;
+			return Number.isInteger(divided);
+		}
+
+		// test code for isFactor, should return true, false
+		// console.log(isFactor(30,6));
+		// console.log(isFactor(12,5));
+
+		// read in and display an array
+		function showFactors(array, paragraphID) {
+			var factorString = "";
+			for (var i = 0; i < array.length; i++) {
+				factorString += array[i] + " ";
+			}
+			document.getElementById(paragraphID).innerHTML = factorString;
+		}
+
+		// test code for showFactors
+		// var testArray = [2, 3, 8, 23, 32, 6, 87, 94];
+		// showFactors(testArray, "allFactors");
+
+		// add the elements of array
+		function addFactors(array) {
+			var sum = 0;
+			for (var i = 0; i < array.length; i++) {
+				sum += array[i];
+			}
+			return sum;
+		}
+
+		// test code for addFactors
+		// var addArray = [32, 22, 1, 7, 56];
+		// console.log(addFactors(addArray));
+
+		// gets all factors of a number
+		function getFactors(input) {
+			var factorArray = [];
+			for (var i = 1; i <= input/2; i++) {
+				if (isFactor(input, i)) {
+					factorArray.push(i);
+				}
+			}
+			return(factorArray);
+		}
+
+		// test code for getFactors
+		// var input = 56;
+		// var outputArray = getFactors(input);
+		// console.log(outputArray);
+
+	</script>
+</body>
