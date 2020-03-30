@@ -1,0 +1,136 @@
+<!-- Abigail Radey - COMP 20 - HW9 -->
+
+<!DOCTYPE html>
+<head>
+	<title>JSON Practice</title>
+	<style>
+		* {
+			font-family: Helvetica;
+		}
+	</style>
+</head>
+<body>
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			// Create JSON to hold setlist
+			var setlist = [
+				{
+					"artist": "ayokay",
+					"title": "Cassette",
+					"genre": "Electronic",
+					"year": "2017"
+				},
+				{
+					"artist": "Noah Kahan",
+					"title": "Catastrophize",
+					"genre": "Alternative",
+					"year": "2018"
+				},
+				{
+					"artist": "Sam Feldt",
+					"title": "Post Malone (feat. RANI)",
+					"genre": "Dance",
+					"year": "2019"
+				},
+				{
+					"artist": "Oliver Heldens and LENNO",
+					"title": "This Groove",
+					"genre": "Dance",
+					"year": "2019"
+				},
+				{
+					"artist": "3OH!3",
+					"title": "My First Kiss (feat. Ke$ha)",
+					"genre": "Pop",
+					"year": "2010"
+				},
+				{
+					"artist": "Gaulin",
+					"title": "Moonlight",
+					"genre": "Dance",
+					"year": "2018"
+				},
+				{
+					"artist": "Quinn XCII",
+					"title": "Stacy",
+					"genre": "Pop",
+					"year": "2019"
+				},
+				{
+					"artist": "Tones and I",
+					"title": "Dance Monkey",
+					"genre": "Alternative",
+					"year": "2019"
+				},
+				{
+					"artist": "Post Malone",
+					"title": "I Fall Apart",
+					"genre": "Hip-Hop",
+					"year": "2016"
+				},
+				{
+					"artist": "Blanco Brown",
+					"title": "The Git Up",
+					"genre": "Country",
+					"year": "2019"
+				}
+			];
+
+			// display serialized data
+			var serialize = "";
+			for (i=0;i<setlist.length;i++) {
+				serialize = JSON.stringify(setlist[i]);
+				document.getElementById("serialdata").innerHTML += serialize + "<br>";
+			}
+
+			// show songs in a user friendly display
+			var stringList = JSON.stringify(setlist);
+			var parsedList = JSON.parse(stringList);
+
+			function displaySong(x) {
+				disp = "<b>";
+				disp += parsedList[x].title + "</b><br>";
+				disp += "Artist: " + parsedList[x].artist + "<br>";
+				disp += "Genre: " + parsedList[x].genre + "<br>";
+				disp += "Released in " + parsedList[x].year + "<br><br>";
+				document.getElementById("userFriendly").innerHTML += disp;
+			}
+			function displayAll() {
+				for (var i=0;i<parsedList.length;i++) {
+					displaySong(i);
+				}
+			}
+			document.getElementById("filterButton").addEventListener("click", function() {
+				document.getElementById("userFriendly").innerHTML = "";
+				var input = document.getElementById("genreSelect").value;
+				if (input == "All Genres") {
+					displayAll();
+				} else {
+					for (var i=0;i<parsedList.length;i++) {
+						if (input == parsedList[i].genre) {
+							displaySong(i);
+						}
+					}
+				}
+			});
+		})
+	</script>
+	<h1>JSON Setlist</h1>
+	<h2>Serialized Data</h2>
+	<p id="serialdata"></p>
+	<h2>Filter By Genre</h2>
+	<form>
+		<select id="genreSelect">
+			<option>All Genres</option>
+			<option>Alternative</option>
+			<option>Country</option>
+			<option>Dance</option>
+			<option>Electronic</option>
+			<option>Hip-Hop</option>
+			<option>Pop</option>
+		</select>
+		<input type="button" id="filterButton" value="Filter"></button>
+		<p id="userFriendly"></p>
+
+	</form>
+</body>
