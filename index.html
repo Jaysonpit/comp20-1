@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+	<title>Rick&Morty API</title>
+	<meta charset="utf-8"/>
+	<script>
+		function getWeather() {
+			/* Step 1: Make instance of request object...
+			...to make HTTP request after page is loaded*/
+			request = new XMLHttpRequest();
+			console.log("1 - request object created");
+ 
+			// Step 2: Set the URL for the AJAX request to be the JSON file
+ 
+			request.open("GET", "https://rickandmortyapi.com/api/character/1,2", true);
+
+			console.log("2 - opened request file");
+ 
+			// Step 3: set up event handler/callback
+
+			request.onreadystatechange = function() {
+				console.log("3 - readystatechange event fired.");
+ 
+				if (request.readyState == 4 && request.status == 200) {
+
+					// Step 5: wait for done + success
+
+					result = request.responseText;
+					alert(result)
+					character = JSON.parse(result);
+
+					var content = "First Character: " + character[0]["name"] + "<br>";
+					content += "Status: " + character[0]["status"] + "<br>";
+					content += "Species: " + character[0]["species"] + "<br>";
+					content += "Location: " + character[0]["location"]["name"] + "<br><br>";
+
+					content += "Second Character: " + character[1]["name"] + "<br>";
+					content += "Status: " + character[1]["status"] + "<br>";
+					content += "Species: " + character[1]["species"] + "<br>";
+					content += "Location: " + character[1]["location"]["name"] + "<br><br>";
+
+					
+					//document.getElementById("data").innerHTML ="PROJECT: " + character[1]["name"]; 
+					document.getElementById("data").innerHTML = content; 
+					
+				}
+				else {
+
+					document.getElementById("data").innerHTML = "Something is wrong!  Check the logs to see where this went off the rails";
+					console.log("status: " + request.status);
+
+				}
+			}
+		// Step 4: fire off the HTTP request
+			request.send();
+			console.log("4 - Request sent");
+		}
+	</script>
+</head>
+
+
+<body onload="getWeather()">
+
+	<h1>Rick & Morty Character</h1>
+	<div id="data">Loading...</div>
+	<h2>About the Rick and Morty API</h2>
+        <p>The Rick and Morty API is an open online database that holds information on the TV show Rick and Morty. It gives the user the possibility to:
+        <ul>
+            <li>Find information on characters</li>
+            <li>Find information on locations in the show</li>
+            <li>Find information on the episodes</li>
+            <li>See how the characters, their locations, and the episodes interact/overlap</li>
+        </ul>
+        </p>
+        <br>
+        <h2>Citations</h2>
+        <p>The Rick and Morty API website: <a href="https://rickandmortyapi.com/">https://rickandmortyapi.com/</a><br>
+        GitHub Public APIs: <a href="https://github.com/public-apis/public-apis#games--comics">https://github.com/public-apis/public-apis#games--comics</a></p>
+        <br>
+        <h2>Option for the API Request</h2>
+        <p>For my GET request, I specified information for the two main characters: Rick and Morty. In the API, they can be found through "/api/character/1,2".</p>
+        <br>
+        <h2>Application Ideas</h2>
+        <p>1. Test Your Rick and Morty Knowledge <br>
+            Have you ever had a friend question how much you like a show because they want to test your obsession against their own? Never lose one of those match ups again! With all the information available on the API, you could make an application that randomly generates characters so you can quiz yourself on different information about each character to know more than your friends.
+        </p>
+        <p>2. Rick and Morty Dating <br>
+            You could find your perfect match for a romantic partner! By filtering through data on species, life status, gender, and location, you could find the character(s) that you are most compatible with.
+        </p>
+</body>
+</html>
